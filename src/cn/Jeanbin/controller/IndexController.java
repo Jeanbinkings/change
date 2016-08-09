@@ -1,6 +1,8 @@
 package cn.Jeanbin.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
@@ -10,15 +12,27 @@ import cn.Jeanbin.service.EntityService;
 
 public class IndexController extends Controller {
 
-	public void index() throws ClassNotFoundException, SQLException {
+	public void index(){
+		render("datagrid.html");
+	}
+	
+	
+	public void initData() throws ClassNotFoundException, SQLException {
 		// render("index");
-		int pageNumber = 1;
-		int pageSize = 10;
+		int pageNumber = getParaToInt("page");
+		int pageSize = getParaToInt("rows");
 		EntityService es = new EntityService();
 		Page<EntityDao> list = es.showAll(pageNumber, pageSize,"v_91porn");
 		setAttr("tables", es.showtabls());
-		setAttr("list", list);
-		render("index.html");
+		/*setAttr("list", list);*/
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("rows", list.getList());
+		map.put("total", list.getTotalRow());
+		/*setAttr("rows", list.getList());
+		setAttr("total",list.getTotalRow());*/
+		//render("datagrid.html");
+		renderJson(map);
+		
 	}
 
 	public void search_all() throws ClassNotFoundException, SQLException {

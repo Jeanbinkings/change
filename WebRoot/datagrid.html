@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="${base}/easyui/themes/bootstrap/easyui.css">
+<link rel="stylesheet" href="${base}/easyui/themes/icon.css">
+<script type="text/javascript" src="${base}/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="${base}/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${base}/easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+	<table id="tb"></table>
+</body>
+<script type="text/javascript">
+$(function(){
+	$("#tb").datagrid({
+		title:'title',
+		url:'${base}/initData',
+		iconCls:'icon-search',
+		fitColumns:true ,
+		striped:true,
+		idField:'id',
+		pagination:true,
+		pageSize:20,
+		columns:[[{field:'id',title:'ID'},
+		          {field:'name',title:'Name'},
+		          {field:'videourl',title:'Url'},
+		          {field:'caiji',title:'Title',
+		        	  formatter:function(value,row,index){
+		        		  if(value == null){
+		        			  return "NULL";
+		        		  }
+		        	  }},
+		          {field:'chuli',title:'Chuli',
+		        	  formatter:function(value,row,index){
+		        		  if(value == null){
+		        			  return "NULL";
+		        		  }
+		        	  }
+		          }
+		          ]] 
+	});
+});
+</script>
+</html>
